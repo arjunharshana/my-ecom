@@ -136,6 +136,42 @@ document.addEventListener("DOMContentLoaded", () => {
     checkoutButton.disabled = cart.length === 0; // Disable checkout if cart is empty
   };
 
+  // ---EVENT LISTENERS---
+
+  productList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("add-to-cart-btn")) {
+      const productId = parseInt(e.target.dataset.id, 10);
+      addToCart(productId);
+    }
+  });
+
+  cartItemsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove-btn")) {
+      const productId = parseInt(e.target.dataset.id, 10);
+      removeFromCart(productId);
+    }
+  });
+
+  checkoutButton.addEventListener("click", () => {
+    if (cart.length > 0) {
+      alert(
+        "Thank you for your purchase!\n\nTotal: $" + cartTotalEl.textContent
+      );
+      cart = []; // Clear the cart after checkout
+      updateCartUI();
+    } else {
+      alert("Your cart is empty!");
+    }
+  });
+
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    alert("Thank you for contacting us, " + name + "!");
+    contactForm.reset();
+  });
+
+  // Initial render
   renderProducts();
   updateCartUI();
 });
