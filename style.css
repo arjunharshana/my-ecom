@@ -244,6 +244,7 @@ section h2 {
   border-radius: 0.25rem;
   font-size: 1rem;
   font-family: inherit;
+  min-height: auto;
   resize: none;
 }
 
