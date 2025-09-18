@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const productCard = document.createElement("div");
       productCard.className = "product-card";
 
-      // Using a template literal to easily create the HTML structure for each card.
+      // Using a template literal to create the HTML structure for each card.
       productCard.innerHTML = `
                 <img src="${product.image}" alt="${
         product.name
@@ -76,5 +76,66 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  /**Function to add a product to the cart */
+  const addToCart = (productId) => {
+    const product = products.find((p) => p.id === productId); //Find a product by its ID
+    const cartItem = cart.find((item) => item.id === productId); //Check if the product is already in the cart
+
+    if (cartItem) {
+      cartItem.quantity++;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+    updateCartUI();
+  };
+
+  /**Updates the quantity of specified item in the cart */
+  const updateQuantity = (productId, newQuantity) => {
+    const cartItem = cart.find((item) => item.id === productId);
+    if (cartItem) {
+      if (newQuantity <= 0) {
+        removeFromCart(productId);
+      } else {
+        cartItem.quantity = newQuantity;
+        updateCartUI();
+      }
+    }
+    updateCartUI();
+  };
+
+  /**Removes an item from the cart */
+  const removeFromCart = (productId) => {
+    //Create a new cart array excluding the item with the specified productId
+    cart = cart.filter((item) => item.id !== productId);
+    updateCartUI();
+  };
+
+  const updateCartUI = () => {
+    cartItemsContainer.innerHTML = ""; // Clear existing cart items
+
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+      cartSummary.style.display = "none";
+    } else {
+      cartSummary.style.display = "block";
+      cart.forEach((item) => {
+        const cartItemEl = document.createElement("div");
+        cartItemEl.className = "cart-item";
+        cartItemEl.innerHTML = `
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+        cartItemsContainer.appendChild(cartItemEl);
+      });
+    }
+    const total = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    cartTotalEl.textContent = total.toFixed(2);
+    checkoutButton.disabled = cart.length === 0; // Disable checkout if cart is empty
+  };
+
   renderProducts();
+  updateCartUI();
 });
