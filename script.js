@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: 5,
       name: "Mechanical Keyboard",
-      price: 129.99,
+      price: 259.99,
       image: "images/keyboard.png",
     },
     { id: 6, name: "4K Webcam", price: 159.5, image: "images/webcam.png" },
@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const cartTotalEl = document.getElementById("cart-total");
   const checkoutButton = document.getElementById("checkout-button");
   const contactForm = document.getElementById("contact-form");
+  const mobileMenuButton = document.querySelector(".mobile-menu-button");
+  const nav = document.querySelector("nav");
 
   // --- FUNCTIONS ---
 
@@ -136,8 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
     checkoutButton.disabled = cart.length === 0; // Disable checkout if cart is empty
   };
 
-  // ---EVENT LISTENERS---
-
   productList.addEventListener("click", (e) => {
     if (e.target.classList.contains("add-to-cart-btn")) {
       const productId = parseInt(e.target.dataset.id, 10);
@@ -169,6 +169,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = document.getElementById("name").value.trim();
     alert("Thank you for contacting us, " + name + "!");
     contactForm.reset();
+  });
+
+  mobileMenuButton.addEventListener("click", () => {
+    nav.classList.toggle("is-open");
   });
 
   // Initial render

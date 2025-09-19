@@ -35,18 +35,47 @@ html {
   padding-right: 1.5rem;
 }
 
-/* Header & Navigation */
 header {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem 1.5rem; /* Padding for content spacing */
-  position: sticky; /* Make header stick to top */
+  padding: 1rem 1.5rem;
+  position: sticky;
   top: 0;
   z-index: 100;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   position: relative;
+}
+
+.mobile-menu-button {
+  display: block; /* Show by default on mobile */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 110;
+}
+
+.hamburger-icon {
+  color: var(--secondary-color);
+}
+
+nav {
+  display: none; /* Hide nav by default on mobile */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+nav.is-open {
+  display: flex; /* This class will be toggled by JS to show the menu */
 }
 
 .logo {
@@ -56,18 +85,12 @@ header {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  gap: 0.75rem; /* Space between image and text */
+  gap: 0.75rem;
 }
 
 .logo img {
-  height: 50px; /* Control the size of the logo image */
+  height: 50px;
   width: auto;
-}
-
-nav {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
 }
 
 nav a {
@@ -81,7 +104,6 @@ nav a:hover {
   color: var(--primary-color);
 }
 
-/* Main Section */
 #home {
   text-align: center;
   padding: 6rem 0;
@@ -102,7 +124,7 @@ nav a:hover {
   background-color: var(--primary-color);
   color: white;
   padding: 0.75rem 1.5rem;
-  border-radius: 9999px; /* full pill shape */
+  border-radius: 9999px;
   text-decoration: none;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -114,7 +136,6 @@ nav a:hover {
   transform: scale(1.05);
 }
 
-/* Section Styles */
 section {
   padding: 4rem 0;
 }
@@ -125,7 +146,6 @@ section h2 {
   margin-bottom: 3rem;
 }
 
-/* Product Grid */
 .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -133,7 +153,6 @@ section h2 {
   justify-content: center;
 }
 
-/* Product Card (styles for JS-generated content) */
 .product-card {
   background-color: white;
   border-radius: 0.5rem;
@@ -189,7 +208,6 @@ section h2 {
   background-color: #1e293b;
 }
 
-/* Cart & Contact Forms */
 .cart-container,
 .contact-container {
   max-width: 800px;
@@ -200,7 +218,6 @@ section h2 {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Cart Specific */
 .cart-items {
   min-height: 50px;
 }
@@ -212,8 +229,7 @@ section h2 {
   margin-bottom: 1.5rem;
 }
 #checkout-button {
-  /* Style button by ID */
-  background-color: #22c55e;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   padding: 0.75rem;
@@ -228,7 +244,6 @@ section h2 {
   background-color: #16a34a;
 }
 
-/* Contact Form */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -259,7 +274,6 @@ section h2 {
 }
 
 #contact-form button[type="submit"] {
-  /* Style submit button by type */
   background-color: var(--primary-color);
   color: white;
   border: none;
@@ -276,7 +290,6 @@ section h2 {
   background-color: var(--primary-hover);
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 2rem 0;
@@ -285,12 +298,34 @@ footer {
   margin-top: 2rem;
 }
 
-/* Responsive Styles */
+@media (min-width: 768px) {
+  .mobile-menu-button {
+    display: none; /* Hide hamburger on wide screens */
+  }
 
-@media (max-width: 767px) {
-  header {
-    flex-direction: column;
-    gap: 1rem;
+  nav {
+    display: flex; /* Show nav as a row on wide screens */
+    position: static;
+    flex-direction: row;
+    width: auto;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  nav a {
+    padding: 0;
+    width: auto;
+  }
+
+  nav a:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+  }
+
+  .product-card {
+    width: calc(50% - 1rem);
   }
 }
 
